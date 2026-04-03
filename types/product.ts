@@ -1,4 +1,5 @@
 export type Product = {
+  is_favourite: boolean;
   _id: string;
   product_id: string;
   name: string;
@@ -11,5 +12,4 @@ export type Product = {
   sku: string[];
   qty: number;
   edit: boolean;
-  favourite: boolean;
 };

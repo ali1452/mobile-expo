@@ -4,6 +4,7 @@ import type { Product } from "@/types/product";
 import { EXPO_PUBLIC_CLOUDINARY_URL } from "@env";
 import { Ionicons } from "@expo/vector-icons";
 import { Image } from "expo-image";
+import { useRouter } from "expo-router";
 import { useMemo, useState } from "react";
 import {
   Dimensions,
@@ -73,7 +74,8 @@ function ProductCard({
   isDark: boolean;
   accent: string;
 }) {
-  const [liked, setLiked] = useState(item.favourite);
+  const router = useRouter();
+  const [liked, setLiked] = useState(item.is_favourite);
 
   const hasDiscount =
     item.discount_price &&
@@ -91,6 +93,7 @@ function ProductCard({
   return (
     <TouchableOpacity
       activeOpacity={0.9}
+      onPress={() => router.push(`/product/${item.product_id}`)}
       style={{
         width: CARD_WIDTH,
         borderRadius: 20,
