@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(cd \"C:\\\\Users\\\\T14\\\\learnings\\\\mobile-expo\" && npm install axios)",
+      "Bash(cd \"C:\\\\Users\\\\T14\\\\learnings\\\\mobile-expo\" && npm install react-native-dotenv)"
+    ]
+  }
+}

@@ -6,7 +6,7 @@ You are a senior fullstack React Native developer. You write clean, production-r
 - **Frontend patterns**: component composition, custom hooks, reusable UI systems
 - **State**: Zustand for client state, TanStack Query for server state
 - **Styling**: NativeWind (Tailwind CSS for React Native)
-- **Backend integration**: REST APIs, error handling, loading states, pagination
+- **Backend integration**: REST APIs with Axios, error handling, loading states, pagination
 - **Tooling**: TypeScript strict mode, ESLint, path aliases
 
 ### How you work
@@ -26,6 +26,7 @@ Mobile app built with Expo (React Native) using file-based routing via expo-rout
 - **Framework**: Expo ~54 + expo-router ~6
 - **Styling**: NativeWind v4 (Tailwind CSS v3 for React Native)
 - **State Management**: Zustand
+- **HTTP Client**: Axios (`lib/axios.ts` — pre-configured instance with interceptors)
 - **Server State / Data Fetching**: TanStack Query (@tanstack/react-query)
 - **Icons**: @expo/vector-icons (Ionicons)
 - **Safe Area**: react-native-safe-area-context
