@@ -1,5 +1,4 @@
 import { useProducts } from "@/hooks/useProducts";
-import { useCartStore } from "@/store/useCartStore";
 import { useThemeStore } from "@/store/useThemeStore";
 import type { Product } from "@/types/product";
 import { EXPO_PUBLIC_CLOUDINARY_URL } from "@env";
@@ -76,7 +75,6 @@ function ProductCard({
   accent: string;
 }) {
   const router = useRouter();
-  const addToCart = useCartStore((state) => state.addToCart);
   const [liked, setLiked] = useState(item.is_favourite);
 
   const hasDiscount =
@@ -226,14 +224,12 @@ function ProductCard({
           )}
         </View>
 
-        {/* Add to cart */}
+        {/* View Detail */}
         <TouchableOpacity
-          disabled={item.qty === 0}
-          onPress={() => addToCart(item)}
+          onPress={() => router.push(`/product/${item.product_id}`)}
           style={{
             marginTop: 10,
-            backgroundColor:
-              item.qty === 0 ? (isDark ? "#374151" : "#e5e7eb") : accent,
+            backgroundColor: isDark ? "#374151" : "#f3f4f6",
             paddingVertical: 9,
             borderRadius: 12,
             alignItems: "center",
@@ -243,18 +239,18 @@ function ProductCard({
           }}
         >
           <Ionicons
-            name="bag-add-outline"
+            name="eye-outline"
             size={15}
-            color={item.qty === 0 ? (isDark ? "#6b7280" : "#9ca3af") : "#fff"}
+            color={isDark ? "#f9fafb" : "#111827"}
           />
           <Text
             style={{
-              color: item.qty === 0 ? (isDark ? "#6b7280" : "#9ca3af") : "#fff",
+              color: isDark ? "#f9fafb" : "#111827",
               fontWeight: "700",
               fontSize: 12,
             }}
           >
-            {item.qty === 0 ? "Unavailable" : "Add to Bag"}
+            View Detail
           </Text>
         </TouchableOpacity>
       </View>
