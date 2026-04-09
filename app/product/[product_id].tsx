@@ -8,6 +8,7 @@ import { useLocalSearchParams, useRouter } from "expo-router";
 import { useState } from "react";
 import {
   ActivityIndicator,
+  Alert,
   Dimensions,
   ScrollView,
   Text,
@@ -298,16 +299,44 @@ export default function ProductDetailScreen() {
           {/* SKU selector */}
           {product.sku.length > 0 && (
             <View style={{ marginBottom: 20 }}>
-              <Text
+              <View
                 style={{
-                  fontSize: 14,
-                  fontWeight: "700",
-                  color: textMain,
+                  flexDirection: "row",
+                  alignItems: "center",
+                  gap: 8,
                   marginBottom: 12,
                 }}
               >
-                Size / SKU
-              </Text>
+                <Text
+                  style={{
+                    fontSize: 14,
+                    fontWeight: "700",
+                    color: textMain,
+                  }}
+                >
+                  Size / SKU
+                </Text>
+                {!selectedSku && (
+                  <View
+                    style={{
+                      backgroundColor: "#fef3c7",
+                      paddingHorizontal: 8,
+                      paddingVertical: 2,
+                      borderRadius: 8,
+                    }}
+                  >
+                    <Text
+                      style={{
+                        fontSize: 11,
+                        color: "#d97706",
+                        fontWeight: "600",
+                      }}
+                    >
+                      Required
+                    </Text>
+                  </View>
+                )}
+              </View>
               <ScrollView
                 horizontal
                 showsHorizontalScrollIndicator={false}
@@ -489,7 +518,14 @@ export default function ProductDetailScreen() {
 
         <TouchableOpacity
           disabled={product.qty === 0}
-          onPress={() => addToCart(product, qty)}
+          onPress={() => {
+            if (product.sku.length > 0 && !selectedSku) {
+              Alert.alert("Select a Size", "Please select a size before adding to your bag.");
+              return;
+            }
+            addToCart(product, qty);
+            Alert.alert("Added to Bag", `${product.name} has been added to your bag.`);
+          }}
           style={{
             flex: 1,
             height: 52,
@@ -517,7 +553,11 @@ export default function ProductDetailScreen() {
                 product.qty === 0 ? (isDark ? "#6b7280" : "#9ca3af") : "#fff",
             }}
           >
-            {product.qty === 0 ? "Unavailable" : "Add to Bag"}
+            {product.qty === 0
+              ? "Unavailable"
+              : product.sku.length > 0 && !selectedSku
+              ? "Select a Size"
+              : "Add to Bag"}
           </Text>
         </TouchableOpacity>
       </View>
