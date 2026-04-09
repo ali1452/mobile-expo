@@ -1,4 +1,5 @@
 import { useProduct } from "@/hooks/useProduct";
+import { useCartStore } from "@/store/useCartStore";
 import { useThemeStore } from "@/store/useThemeStore";
 import { EXPO_PUBLIC_CLOUDINARY_URL } from "@env";
 import { Ionicons } from "@expo/vector-icons";
@@ -25,6 +26,8 @@ export default function ProductDetailScreen() {
   const { data, isLoading, isError, error, refetch } = useProduct(product_id);
 
   const product = data?.[0];
+
+  const addToCart = useCartStore((state) => state.addToCart);
 
   const [selectedSku, setSelectedSku] = useState<string | null>(null);
   const [liked, setLiked] = useState(product?.is_favourite ?? false);
@@ -486,6 +489,7 @@ export default function ProductDetailScreen() {
 
         <TouchableOpacity
           disabled={product.qty === 0}
+          onPress={() => addToCart(product, qty)}
           style={{
             flex: 1,
             height: 52,

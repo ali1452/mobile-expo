@@ -1,4 +1,5 @@
 import { useProducts } from "@/hooks/useProducts";
+import { useCartStore } from "@/store/useCartStore";
 import { useThemeStore } from "@/store/useThemeStore";
 import type { Product } from "@/types/product";
 import { EXPO_PUBLIC_CLOUDINARY_URL } from "@env";
@@ -75,6 +76,7 @@ function ProductCard({
   accent: string;
 }) {
   const router = useRouter();
+  const addToCart = useCartStore((state) => state.addToCart);
   const [liked, setLiked] = useState(item.is_favourite);
 
   const hasDiscount =
@@ -227,6 +229,7 @@ function ProductCard({
         {/* Add to cart */}
         <TouchableOpacity
           disabled={item.qty === 0}
+          onPress={() => addToCart(item)}
           style={{
             marginTop: 10,
             backgroundColor:
