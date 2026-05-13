@@ -175,9 +175,12 @@ export default function CheckoutScreen() {
           },
         ],
       );
-    } catch (err: unknown) {
-      const message = err instanceof Error ? err.message : "Something went wrong. Please try again.";
-      Alert.alert("Order Failed", message);
+    } catch {
+      Alert.alert(
+        "Couldn't place your order",
+        "Something went wrong on our end. Please try again, or contact support if the issue continues.",
+        [{ text: "Try Again" }],
+      );
     } finally {
       setSubmitting(false);
     }
@@ -402,7 +405,7 @@ export default function CheckoutScreen() {
                   fontSize: 16,
                 }}
               >
-                Placing Order…
+                Placing your order…
               </Text>
             ) : (
               <>
